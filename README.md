@@ -1,2 +1,2 @@
 # top_vk
-HTML page showing trendy hashtags on Vkontakte social network
+HTML page showing trendy hashtags in Vkontakte social network
