@@ -1,0 +1,85 @@
+<<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>JTOP</title>
+    </head>
+    <body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link type="text/css" rel="StyleSheet" href="http://bootstraptema.ru/plugins/2016/shieldui/style.css" />
+<script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<script src="http://bootstraptema.ru/plugins/2016/shieldui/script.js"></script>
+<p align = "center">Отслеживание графиков топ5 хэштегов ВК</p>
+<div id="content1" class="block1"></div>
+<div id="content2"></div>
+<div id="content3"></div>
+<div id="content4"></div>
+<div id="content5"></div>
+  <script>
+      function g (ids,a,b) {
+$(ids).shieldChart({
+theme: "light",
+seriesSettings: {
+line: {
+dataPointText: {
+enabled: true
+}
+}
+},
+chartLegend: {
+align: 'center',
+borderRadius: 2,
+borderWidth: 2,
+verticalAlign: 'top'
+},
+exportOptions: {
+image: false,
+print: false
+},
+axisX: {
+categoricalValues: a
+},
+axisY: {
+title: {
+text: "Цена (€ за kWh)"
+}
+},
+primaryHeader: {
+text: "Цены на электроэнергию"
+},
+dataSeries: [{
+seriesType: 'line',
+collectionAlias: 'Домохозяйство',
+data: b
+}]
+})};
+        function show(stri)
+        {
+            $.ajax({
+                url: "f",
+                cache: false,
+                success: function(html){
+                    console.log(stri);
+  					let a = JSON.parse(html);
+                    $(stri).html(g(stri,a.a,a.b));
+                }
+            });
+        }
+        function drow(){
+            show("#content1");
+            show("#content2");
+            show("#content3");
+            show("#content4");
+            show("#content5");
+                }
+
+
+        $(document).ready(function(){
+            drow()
+            setInterval('drow()',2000);
+        });
+
+
+</script>
+</body>
+</html>
